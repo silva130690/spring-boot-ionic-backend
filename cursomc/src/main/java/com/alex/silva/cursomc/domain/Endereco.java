@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 public class Endereco implements Serializable {
@@ -26,6 +28,7 @@ public class Endereco implements Serializable {
 	private String bairro;
 	private String cep;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="cliente_id")   //Nome da chave estrangeira da tabela no banco.
 	private Cliente cliente;
