@@ -2,13 +2,28 @@ package com.alex.silva.cursomc.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+
 import com.alex.silva.cursomc.domain.enums.EstadoPagamento;
 
+@Entity
 public class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	private Integer id;
 	private EstadoPagamento estado;
+	
+	@OneToOne
+	@JoinColumn(name="pedido_id")
+	@MapsId
+	private Pedido pedido;
+
+	
     public Integer getId() {
 		return id;
 	}
@@ -33,7 +48,6 @@ public class Pagamento implements Serializable {
 		this.pedido = pedido;
 	}
 
-	private Pedido pedido;
     
 public Pagamento() {
 		
