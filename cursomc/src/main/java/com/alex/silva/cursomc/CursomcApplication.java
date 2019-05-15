@@ -13,6 +13,7 @@ import com.alex.silva.cursomc.domain.Cidade;
 import com.alex.silva.cursomc.domain.Cliente;
 import com.alex.silva.cursomc.domain.Endereco;
 import com.alex.silva.cursomc.domain.Estado;
+import com.alex.silva.cursomc.domain.ItemPedido;
 import com.alex.silva.cursomc.domain.Pagamento;
 import com.alex.silva.cursomc.domain.PagamentoComBoleto;
 import com.alex.silva.cursomc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.alex.silva.cursomc.repositories.CidadeRepository;
 import com.alex.silva.cursomc.repositories.ClienteRepository;
 import com.alex.silva.cursomc.repositories.EnderecoRepository;
 import com.alex.silva.cursomc.repositories.EstadoRepository;
+import com.alex.silva.cursomc.repositories.ItemPedidoRepository;
 import com.alex.silva.cursomc.repositories.PagamentoRepository;
 import com.alex.silva.cursomc.repositories.PedidoRepository;
 import com.alex.silva.cursomc.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class CursomcApplication  implements CommandLineRunner{//Permitir executa
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	
 	
@@ -132,8 +137,23 @@ public class CursomcApplication  implements CommandLineRunner{//Permitir executa
 	    
 	    c1.getPedidos().addAll(Arrays.asList(ped1,ped2));
 	    
+	    
+	    ItemPedido ip1 = new ItemPedido(ped1,pdt1,00.00,1,2000.00);
+	    ItemPedido ip2 = new ItemPedido(ped1 ,pdt3 ,00.00 ,2,100.00);
+	    ItemPedido ip3 = new ItemPedido(ped2,pdt2,100.00,1,800.00);
+	    
+	    pdt1.getItens().addAll(Arrays.asList(ip1,ip2));
+	    pdt2.getItens().addAll(Arrays.asList(ip3));
+	    
+	    
+	    pdt1.getItens().addAll(Arrays.asList(ip1));
+	    pdt2.getItens().addAll(Arrays.asList(ip3));
+	    pdt3.getItens().addAll(Arrays.asList(ip2));
+	    
 	    pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
 	    pagamentoRepository.saveAll(Arrays.asList(pagt1,pagt2));
+	    
+	    itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 	    
 	}
 	
