@@ -1,0 +1,33 @@
+package com.alex.silva.cursomc.services.validation;
+
+import javax.validation.ConstraintValidator;
+
+import com.alex.silva.cursomc.dto.ClienteNewDTO;
+import com.alex.silva.cursomc.resources.Exception.FieldMessage;
+import java.util.ArrayList;
+import java.util.List;
+import javax.validation.ConstraintValidatorContext;
+
+public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert,ClienteNewDTO> {
+	
+	@Override
+	public void initialize(ClienteInsert ann){
+		
+	}
+	@Override
+	public boolean isValid(ClienteNewDTO objDto,ConstraintValidatorContext context){
+		List<FieldMessage>list =new ArrayList<>();
+		
+		if(objDto.getTipo() == null) {
+			list.add(new FieldMessage("tipo","O Tipo não pode ser Nulo"));
+		}
+	// inclua os testes aqui, inserindo erros na lista
+	for(FieldMessage e:list){
+		context.disableDefaultConstraintViolation();
+		context.buildConstraintViolationWithTemplate(e.getMensagem()).addPropertyNode(e.getFieldName())
+		.addConstraintViolation();
+		
+	   }
+	   return list.isEmpty();	 
+	}
+}	

@@ -1,0 +1,26 @@
+package com.alex.silva.cursomc.services.validation;
+
+importjava.util.ArrayList;
+importjava.util.List;
+importjavax.validation.ConstraintValidator;
+importjavax.validation.ConstraintValidatorContext;
+
+public class NomeValidator implements ConstraintValidator<Nome,Tipo>{
+	@Override
+
+
+	publicvoidinitialize(Nome ann){
+		
+	}
+	@Override
+	public boolean isValid(Tipo objDto,ConstraintValidatorContext context){
+		List<FieldMessage>list =new ArrayList<>();
+	// inclua os testes aqui, inserindo erros na lista
+	for(FieldMessage e:list){
+		context.disableDefaultConstraintViolation();
+		context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName()).addConstraintViolation();
+		
+	   }
+	   returnlist.isEmpty();	 
+	}
+}	
